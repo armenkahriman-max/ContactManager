@@ -5,11 +5,15 @@ namespace ContactManager.Tests;
 public class UnitTest1
 {
     [Fact]
-    public void CreateContact_ID()
-    {
-        var contact = new Contact("Armen",32);
-        Assert.Equal("Armen", contact.Name);
-        Assert.Equal(32,contact.Id);
-
+    public void AddContact_ShouldApearInGetAll()
+    { //Arange
+        var repo = new InMemoryContactRepository();
+        var contact = new Contact("Armen");
+     //Act
+        repo.Add(contact);
+        var result =repo.GetAll();
+    //Assert
+      Assert.Contains(contact,result);
+      Assert.Single(result);
     }
 }

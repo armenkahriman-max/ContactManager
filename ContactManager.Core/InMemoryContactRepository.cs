@@ -38,7 +38,7 @@ public class InMemoryContactRepository
     }
 
     // Update existing contact
-    public void Update(int id, string newName)
+    public void Update(int id, string name)
     {
         // Find existing contact
         var contact = GetById(id);
@@ -46,7 +46,7 @@ public class InMemoryContactRepository
         if (contact == null) return;
 
         _contacts.Remove(contact); // Remove old version
-        Contact newContact = new Contact(newName);
+        Contact newContact = new Contact(name);
         contact.Id = id;
         _contacts.Add(newContact);  // Add updated version
     }
@@ -64,7 +64,7 @@ public class InMemoryContactRepository
     }
 
     // Search contacts by name
-    public IList<Contact> Search(string name) // ask why the I
+    public List<Contact> Search(string name) // ask why the I
     {
         // Find all contacts that contain the search text
         // Ignore uppercase/lowercase differences

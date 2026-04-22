@@ -1,19 +1,42 @@
+using Xunit;
 using ContactManager.Core;
 
-namespace ContactManager.Tests;
 
-public class UnitTest1
+public class ContactServiceTests
 {
     [Fact]
-    public void AddContact_ShouldApearInGetAll()
-    { //Arange
+    public void AddContact_ShouldAddContact()
+    {
+        // Create a fake (in-memory) repository to store contacts during the test
         var repo = new InMemoryContactRepository();
-        var contact = new Contact("Armen");
-     //Act
-        repo.Add(contact);
-        var result =repo.GetAll();
-    //Assert
-      Assert.Contains(contact,result);
-      Assert.Single(result);
+        // Create the service that uses the repository
+        var service = new ContactService(repo);
+        // Call the method we want to test: add a contact named "John"
+        service.AddContact("John");
+
+        // Get all contacts from the service
+        var contacts = service.GetContacts();
+
+        // Check that there is exactly 1 contact in the list
+        Assert.Single(contacts);
+        // Check that the first contact's name is "John"
+        Assert.Equal("John", contacts[0].Name);
+    }
+}
+public class RepositoryTests
+{
+    [Fact]
+    public void Add_ShouldGenerateIncrementingIds()
+    {
+        var repo = new InMemoryContactRepository();
+
+        var contact1 = new Contact("Alice");
+        var contact2 = new Contact("Bob");
+
+        repo.Add(contact1);
+        repo.Add(contact2);
+
+        Assert.Equal(1, contact1.Id);
+        Assert.Equal(2, contact2.Id);
     }
 }

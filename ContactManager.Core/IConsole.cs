@@ -7,6 +7,7 @@ namespace ContactManager.Core;
 public interface IConsole
 {
     void WriteLine(string message); // output text
+    public void Write(string message);
     string? ReadLine();             // input text
 }
 

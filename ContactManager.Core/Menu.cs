@@ -40,9 +40,13 @@ public class Menu(IConsole console, ContactService service)
     // It does NOT take input or do logic
     private void ShowMenu()
     {
-        _console.WriteLine("1. Contact Toevoegen"); // Option 1: create a new contact
-        _console.WriteLine("q. Exit"); // Option q: Exit
         _console.WriteLine("Maak uw keuze:"); // Option 3: make new choice
+        _console.WriteLine("1. Create new contact"); // Option 1: create a new contact
+        _console.WriteLine("2. Search contact."); // Search contact
+        _console.WriteLine("3. Update ID"); // Update
+        _console.WriteLine("4. Delete ID"); //Delete
+        _console.WriteLine("q. Exit"); // Option q: Exit
+
     }
 
     private void HandleAddContact()
@@ -75,11 +79,21 @@ public class Menu(IConsole console, ContactService service)
 
             case "q":
                 return false; // stops the while loop in Run()
+            case "2":
+                SearchContactFlow();
+                return true;
+            case "3":
+                UpdateContactFlow();
+                return true;
+            case "4":
+                DeleteContactFlow();
+                return true;
 
             default:
                 _console.WriteLine("Invalid option."); // error message
                 return true; // keep program running
         }
+
     }
 
     // =======================
@@ -98,12 +112,12 @@ public class Menu(IConsole console, ContactService service)
     private void UpdateContactFlow() //Changes an existing contact
     {
         _console.WriteLine("Enter ID:"); //Ask for ID (which contact to change)
-        var input = _console.ReadLine(); //Convert input to number
+        var input = _console.ReadLine(); //Read the input
 
-        if (int.TryParse(input, out var id)) //Ask for new name
+        if (int.TryParse(input, out var id)) //try to Convert input to int
         {
-            _console.WriteLine("Enter new name:");
-            var name = _console.ReadLine();
+            _console.WriteLine("Enter new name:"); // enter name
+            var name = _console.ReadLine(); // save it
 
             if (!string.IsNullOrWhiteSpace(name)) //If name is valid:
             {
@@ -116,9 +130,9 @@ public class Menu(IConsole console, ContactService service)
     private void DeleteContactFlow() //Removes a contact
     {
         _console.WriteLine("Enter ID:"); //Ask for ID
-        var input = _console.ReadLine(); //Convert input to number
+        var input = _console.ReadLine();
 
-        if (int.TryParse(input, out var id)) //Send ID to service
+        if (int.TryParse(input, out var id)) //Convert input to number
         {
             _service.DeleteContact(id); //Delete contact
             _console.WriteLine("Deleted!"); //how “Deleted!”

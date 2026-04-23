@@ -7,7 +7,7 @@ namespace ContactManager.Core;
 public class Contact
 {
     public int Id { get; set; }       // Unique identifier (read-only)
-    public string Name { get; }  // Contact name (read-only)
+    public string Name { get; set; }  // Contact name (read-only)
 
     public Contact(string name)
     {

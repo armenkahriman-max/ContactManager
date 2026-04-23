@@ -48,7 +48,7 @@ public class ContactService
     }
 
     // SEARCH CONTACTS
-    public IList<Contact> SearchContacts(string name)
+    public List<Contact> SearchContacts(string name)
     {
         // Ask repository to find matching contacts
         return _repository.Search(name);

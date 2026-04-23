@@ -17,7 +17,7 @@ public class InMemoryContactRepository
     // Add new contact
     public void Add(Contact contact)
     {
-       contact.Id = _nextId++;
+        contact.Id = _nextId++;
         _contacts.Add(contact);
     }
 
@@ -40,15 +40,10 @@ public class InMemoryContactRepository
     // Update existing contact
     public void Update(int id, string name)
     {
-        // Find existing contact
         var contact = GetById(id);
-        // If not found, do nothing
         if (contact == null) return;
 
-        _contacts.Remove(contact); // Remove old version
-        Contact newContact = new Contact(name);
-        contact.Id = id;
-        _contacts.Add(newContact);  // Add updated version
+        contact.Name = name;
     }
 
     // Delete contact

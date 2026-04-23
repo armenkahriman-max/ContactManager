@@ -1,7 +1,7 @@
 
 using ContactManager.Core;
 
-public class MenuTests
+public class MenuTest
 {
     // Create the service with a temporary in-memory data store
     private ContactService service = new(new InMemoryContactRepository());
@@ -11,7 +11,7 @@ public class MenuTests
 // Declare the menu object
     private Menu menu;
 
-    public MenuTests()
+    public MenuTest()
     { // Create the menu using the fake console and service
         menu = new Menu(console, service);
     }

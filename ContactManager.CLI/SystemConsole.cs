@@ -15,6 +15,12 @@ public class SystemConsole : IConsole
         Console.WriteLine(message);
         // Console.WriteLine = built-in C# method that prints text
     }
+    public void Write(string message)
+    {
+    Console.Write(message);
+    }
+
+
     // This method reads input from the user (keyboard)
     // It is used for INPUT (what the user types)
     public string? ReadLine()

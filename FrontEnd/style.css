@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color:rgb(57, 57, 91);
+}
+
+.fullscreen {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #e5ebea;
+}
+
+.card {
+  width: 500px;
+
+  padding: 30px;
+
+  background-color: rgba(92, 145, 218, 0.909);
+  border-radius: 12px;
+
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+
+  margin-top: 20px;
+}
+
+.row input {
+  flex: 1;
+
+  padding: 10px;
+}
+
+.row button {
+  padding: 10px 15px;
+  border-radius: 12px;
+}
+
+.client-list {
+  margin-top: 20px;
+  border-radius: 12px;
+}
+
+.client-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px;
+  margin-top: 10px;
+
+  background-color: #fcfafa;
+  border-radius: 8px;
+}
+
+.actions button {
+  margin-left: 10px;
+}
+.show-btn {
+    border-radius: 12px;
+    padding: 10px;
+   margin-top: 20px;
+}

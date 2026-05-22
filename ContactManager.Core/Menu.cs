@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace ContactManager.Core;
@@ -19,53 +20,69 @@ public class Menu(IConsole console, ContactService service)
     // Main program loop
     public int Run()
     {
-        var running = true; // controls when program stops
-
-        while (running) // Loop keeps running until user chooses to exit
+        while (true)
         {
-            ShowMenu(); // display menu options to use
+            ShowMenu();
 
-            // Read user input from console
-            // If null → replace with empty string to avoid errors
             var input = _console.ReadLine() ?? "";
+            if (string.IsNullOrWhiteSpace(input))
+                return 0;
 
-            // Decide what to do based on user input
-            running = HandleChoice(input);
+            if (!HandleChoice(input))
+                return 0;
         }
 
-        return 0;  // Exit code (0 = success)
+
     }
 
     // This method ONLY shows text to the user
     // It does NOT take input or do logic
     private void ShowMenu()
     {
-        _console.WriteLine("Maak uw keuze:"); // Option 3: make new choice
-        _console.WriteLine("1. Create new contact"); // Option 1: create a new contact
-        _console.WriteLine("2. Search contact."); // Search contact
-        _console.WriteLine("3. Update ID"); // Update
-        _console.WriteLine("4. Delete ID"); //Delete
-        _console.WriteLine("q. Exit"); // Option q: Exit
+
+
+        _console.WriteLine("Make your choice:");
+        _console.WriteLine("1. Add new contact:");
+        _console.WriteLine("2. Search contact:");
+        _console.WriteLine("3. Update contact:");
+        _console.WriteLine("4. Delete contact:");
+        _console.WriteLine("5. Show all contacts:");
+        _console.WriteLine("q. Exit");
+
+
+
 
     }
 
     private void HandleAddContact()
     {
-        _console.WriteLine("Voer een naam in: ");
+        _console.WriteLine("Add Name:");
 
         // Read user input from console
         // If null → replace with empty string to avoid errors
-        var input = _console.ReadLine() ?? "";
+        var name = _console.ReadLine() ?? "";
 
-        if (!string.IsNullOrWhiteSpace(input)) //If name is valid:
+        _console.WriteLine("Add Email:");
+        var email = _console.ReadLine() ?? "";
+
+        _console.WriteLine("Add PhoneNumber:");
+        var phone = _console.ReadLine() ?? "";
+
+        if (!string.IsNullOrWhiteSpace(name) &&
+        !string.IsNullOrWhiteSpace(email) &&
+        !string.IsNullOrWhiteSpace(phone))
         {
-            _service.AddContact(input); //send it to the service (save it)
-            _console.WriteLine("Contact toegevoegd: " + input);
+            _service.AddContact(name, email, phone);
+            _console.WriteLine($"Contact added: {name}");
+            _console.WriteLine($"Email added:{email}");
+            _console.WriteLine($"PhoneNumber added:{phone}");
         }
-        else //If not valid
+        else
         {
-            _console.WriteLine("Invalid name."); //show error message
+            _console.WriteLine("Invalid Input.");
         }
+
+
     }
 
     // Simple explanation User input → switch checks it → correct method runs → continue or exit
@@ -87,6 +104,9 @@ public class Menu(IConsole console, ContactService service)
                 return true;
             case "4":
                 DeleteContactFlow();
+                return true;
+            case "5":
+                ShowContactsFlow();
                 return true;
 
             default:
@@ -121,7 +141,13 @@ public class Menu(IConsole console, ContactService service)
 
             if (!string.IsNullOrWhiteSpace(name)) //If name is valid:
             {
-                _service.UpdateContact(id, name);
+                _console.WriteLine("Enter Email:");
+                var email = _console.ReadLine() ?? "";
+
+                _console.WriteLine("Enter PhoneNumber:");
+                var phone = _console.ReadLine() ?? "";
+
+                _service.UpdateContact(id, name, email, phone);
                 _console.WriteLine("Updated!"); //show “Updated!”
             }    //Find contact → replace its name”
         }
@@ -145,11 +171,17 @@ public class Menu(IConsole console, ContactService service)
         var search = _console.ReadLine() ?? ""; //nothing entered → use empty string
 
         var results = _service.SearchContacts(search); //Ask service to search
+        if (!results.Any())
+        {
+            _console.WriteLine("Name not found");
+            return;
+        }
 
         foreach (var c in results)
         {
             _console.WriteLine(c.ToString()); //Show all matching results
         }   //Type name → see matching contacts
+
     }
 }
 

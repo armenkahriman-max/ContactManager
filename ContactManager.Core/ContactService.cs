@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ContactManager.Core;
 
 // =======================
@@ -18,13 +20,19 @@ public class ContactService
         _repository = repository;
     }
 
-    public void AddContact(string name)
+    public void AddContact(string name, string email, string phone)
     {
         // Validation: prevent empty or invalid names
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Name cannot be empty");
+        if (string.IsNullOrWhiteSpace(email))
+            throw new ArgumentException("Email cannot be empty");
+            if(string.IsNullOrEmpty(phone))
+            throw new ArgumentException("Phone number cannot be Empty");
+           
 
-        Contact contact = new Contact(name);
+
+        Contact contact = new Contact(name, email, phone);
         // Pass data to repository to store it
         _repository.Add(contact);
     }
@@ -35,10 +43,10 @@ public class ContactService
         return _repository.GetAll();
     }
 
-    public void UpdateContact(int id, string name)
+    public void UpdateContact(int id, string name, string email, string phone)
     {
         // Send update request to repository
-        _repository.Update(id, name);
+        _repository.Update(id, name, email, phone);
     }
 
     public void DeleteContact(int id)
@@ -51,7 +59,8 @@ public class ContactService
     public List<Contact> SearchContacts(string name)
     {
         // Ask repository to find matching contacts
-        return _repository.Search(name);
+        return _repository.Search(name).ToList();
+
     }
 }
 

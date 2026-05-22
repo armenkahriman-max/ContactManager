@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace ContactManager.Core;
 
 // =======================
@@ -38,12 +40,14 @@ public class InMemoryContactRepository
     }
 
     // Update existing contact
-    public void Update(int id, string name)
+    public void Update(int id, string name, string phone, string email)
     {
         var contact = GetById(id);
         if (contact == null) return;
 
         contact.Name = name;
+        contact.Email = email;
+        contact.Phone = phone;
     }
 
     // Delete contact

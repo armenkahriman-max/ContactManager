@@ -12,7 +12,7 @@ public class ContactServiceTests
         // Create the service that uses the repository
         var service = new ContactService(repo);
         // Call the method we want to test: add a contact named "John"
-        service.AddContact("John");
+        service.AddContact("Frank", "FranktheTank@gmail.com", "0404332393");
 
         // Get all contacts from the service
         var contacts = service.GetContacts();
@@ -20,7 +20,7 @@ public class ContactServiceTests
         // Check that there is exactly 1 contact in the list
         Assert.Single(contacts);
         // Check that the first contact's name is "John"
-        Assert.Equal("John", contacts[0].Name);
+        Assert.Equal("Frank", contacts[0].Name);
     }
 }
 public class RepositoryTests
@@ -30,8 +30,8 @@ public class RepositoryTests
     {
         var repo = new InMemoryContactRepository();
 
-        var contact1 = new Contact("Alice");
-        var contact2 = new Contact("Bob");
+        var contact1 = new Contact("Frank", "FranktheTank@gmail.com", "0403243241");
+        var contact2 = new Contact("Bob", "Bobthebuilder@gmail.com", "0402343442");
 
         repo.Add(contact1);
         repo.Add(contact2);

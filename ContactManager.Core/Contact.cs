@@ -6,10 +6,11 @@ namespace ContactManager.Core;
 // Represents a single contact (data structure only)
 public class Contact
 {
-    public int Id { get; set; }       // Unique identifier (read-only)
-    public string Name { get; set; }  // Contact name (read-only)
-
-    public Contact(string name)
+    public int Id { get; set; }          // Unique identifier (read-only)
+    public string Name { get;  set; }  // Contact name (read-only)
+    public string Email {get; set;}
+    public string Phone {get; set;}
+    public Contact(string name, string email, string phone)
     {
         // Validation: prevent invalid data entering system
         if (string.IsNullOrWhiteSpace(name))
@@ -17,6 +18,8 @@ public class Contact
 
         // Assign values to properties
         Name = name;
+        Email = email;
+        Phone = phone;
     }
 
     // STRING REPRESENTATION
@@ -25,7 +28,7 @@ public class Contact
         // Defines how object looks when printed
         // Example: Console.WriteLine(contact)
         // Output: "1: John"
-        return $"{Id}: {Name}";
+        return $"{Id}: {Name} | {Email} | {Phone}";
     }
 }
 

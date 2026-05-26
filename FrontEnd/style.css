@@ -74,3 +74,38 @@ h1 {
     padding: 10px;
    margin-top: 20px;
 }
+.hiden {
+  display: none;
+}
+.search-result {
+  margin-top: 20px;
+  padding: 15px;
+  border: 2px solid green;
+  background-color: #e8ffe8;
+  border-radius: 8px;
+}
+
+.search-result {
+  color: green;
+  font-weight: bold;
+}
+.hidden {
+    display: none;
+}
+
+.search-result {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid green;
+    border-radius: 10px;
+    background-color: #dfffe0;
+}
+
+.search-result h3 {
+    color: green;
+    margin-top: 0;
+}
+
+.search-result button {
+    margin-right: 10px;
+}

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Net.Cache;
+
 using ContactManager.Core;
 
    public interface IContactRepository

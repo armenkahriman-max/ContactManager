@@ -14,6 +14,19 @@ const addInput = document.querySelector(".add-input");
 const searchButton = document.querySelector(".search-btn");
 const searchInput = document.querySelector(".search-input");
 
+
+const resultBox = document.getElementById("search-result");
+const clientNameText= document.getElementById("client-name");
+
+const editFoundBtn = document.getElementById("edit-found-btn");
+
+const deleteFoundBtn = document.getElementById("delete-found-btn");
+
+let foundClient =null;
+
+
+
+
 const showBtn = document.querySelector(".show-btn");
 const clientList = document.querySelector(".client-list");
 
@@ -99,10 +112,37 @@ searchButton.addEventListener("click", function () {
     );
 
     if (found) {
-        alert(`Found: ${found}`);
+        foundClient = found;
+
+        clientNameText.textContent =
+        `Name: ${found}`;
+
+        resultBox.classList.remove("hidden");
     } else {
-        alert("Client not found");
+        
+        resultBox.classList.add("hidden");
+
+        alert("Client not foud");
     }
+});
+
+editFoundBtn.addEventListener("click",  function() {
+    if (!foundClient) return;
+
+    handleEdit(foundClient);
+
+    foundClient = null;
+    resultBox.classList.add("hidden");
+});
+
+deleteFoundBtn.addEventListener("click", function() {
+
+    if (!foundClient) return;
+
+    handleDelete(foundClient);
+    foundClient = null;
+
+    resultBox.classList.add("hidden");
 });
 
 // Show / Hide contacts

@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+
 
 namespace ContactManager.Core;
 
@@ -14,9 +14,8 @@ public class ContactService
 
     // Dependency Injection (IoC):
     // The repository is passed in from outside instead of created here
-    public ContactService(InMemoryContactRepository repository) // pull InMemoryconontactrepository in to ContactService
+    public ContactService(InMemoryContactRepository repository)
     {
-        // Dependency Injection (IoC) = something that u need to do the work
         _repository = repository;
     }
 
@@ -27,9 +26,9 @@ public class ContactService
             throw new ArgumentException("Name cannot be empty");
         if (string.IsNullOrWhiteSpace(email))
             throw new ArgumentException("Email cannot be empty");
-            if(string.IsNullOrEmpty(phone))
+        if (string.IsNullOrWhiteSpace(phone))
             throw new ArgumentException("Phone number cannot be Empty");
-           
+
 
 
         Contact contact = new Contact(name, email, phone);

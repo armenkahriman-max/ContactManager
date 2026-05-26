@@ -1,5 +1,4 @@
-using System.IO;
-using System.Runtime.Serialization;
+
 using ContactManager.Core;
 
 public class FileContactRepository : IContactRepository
@@ -7,16 +6,17 @@ public class FileContactRepository : IContactRepository
 
     private readonly string _filePath = "contacts.txt";
 
-    private List<Contact> LoadFromFile()
+   private List<Contact> LoadFromFile()
+{
+    if (File.Exists(_filePath))
     {
-        if (File.Exists(_filePath))
-            return contacts;
-            var lines = File.ReadAllLines(_filePath);
-            
+        var lines = File.ReadAllLines(_filePath);
 
-      
-
+        // TODO: convert lines to Contact objects
     }
+
+    return new List<Contact>();
+}
     public List<Contact> GetAll()
     {
         throw new NotImplementedException();

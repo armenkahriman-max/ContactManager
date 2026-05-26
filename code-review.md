@@ -17,3 +17,5 @@ public class ContactService
 but make sure this is outside of `InMemoryContactRepository`.
 - remove unused namespaces
 - one class per file, or one file per class
+
+-fixed the mistakes

@@ -25,7 +25,7 @@ export function editContact(
     newName
 ) {
 
-    const index = contact .findIndex(
+    const index = contacts.findIndex(
         contact=>
             contact.toLowerCase() ===
         oldName.toLowerCase()

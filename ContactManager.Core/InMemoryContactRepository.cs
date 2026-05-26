@@ -1,4 +1,4 @@
-using System.Globalization;
+
 
 namespace ContactManager.Core;
 
@@ -40,15 +40,15 @@ public class InMemoryContactRepository
     }
 
     // Update existing contact
-    public void Update(int id, string name, string phone, string email)
-    {
-        var contact = GetById(id);
-        if (contact == null) return;
+    public void Update(int id, string name, string email, string phone)
+{
+    var contact = GetById(id);
+    if (contact == null) return;
 
-        contact.Name = name;
-        contact.Email = email;
-        contact.Phone = phone;
-    }
+    contact.Name = name;
+    contact.Email = email;
+    contact.Phone = phone;
+}
 
     // Delete contact
     public void Delete(int id)
@@ -63,7 +63,7 @@ public class InMemoryContactRepository
     }
 
     // Search contacts by name
-    public List<Contact> Search(string name) // ask why the I
+    public List<Contact> Search(string name)
     {
         // Find all contacts that contain the search text
         // Ignore uppercase/lowercase differences
@@ -73,7 +73,7 @@ public class InMemoryContactRepository
 }
 
 
-//private more control on how data is consumbed by othre classes, a way to make sure your code for a specific topic stays in 1place
+
 
 
 

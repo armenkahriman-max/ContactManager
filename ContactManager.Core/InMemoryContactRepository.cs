@@ -6,7 +6,7 @@ namespace ContactManager.Core;
 // REPOSITORY (DATA LAYER)
 // =======================
 // Responsible ONLY for storing and retrieving data
-public class InMemoryContactRepository
+public class InMemoryContactRepository : IContactRepository
 {
     // This list acts like a "fake database"
     // It stores all contacts in memory (RAM)
@@ -69,6 +69,21 @@ public class InMemoryContactRepository
         // Ignore uppercase/lowercase differences
         return _contacts.Where(c => c.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
 
+    }
+
+    public void add(Contact contact)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IReadOnlyList<Contact> Getall()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void delte(int id)
+    {
+        throw new NotImplementedException();
     }
 }
 

@@ -10,11 +10,11 @@ public class ContactService
 {
     // This is the repository (data layer)
     // It is responsible for storing and retrieving contacts
-    private readonly InMemoryContactRepository _repository;
+    private readonly IContactRepository _repository;
 
     // Dependency Injection (IoC):
     // The repository is passed in from outside instead of created here
-    public ContactService(InMemoryContactRepository repository)
+    public ContactService(IContactRepository repository)
     {
         _repository = repository;
     }

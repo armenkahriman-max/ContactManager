@@ -1,7 +1,7 @@
 
 using ContactManager.Core;
 
-public class FileContactRepository : IContactRepository
+public class FileContactRepository
 {
 
     private readonly string _filePath = "contacts.txt";

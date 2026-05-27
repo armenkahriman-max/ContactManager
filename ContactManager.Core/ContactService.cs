@@ -19,7 +19,7 @@ public class ContactService
         _repository = repository;
     }
 
-    public void AddContact(string name, string email, string phone)
+    public Contact AddContact(string name, string email, string phone)
     {
         // Validation: prevent empty or invalid names
         if (string.IsNullOrWhiteSpace(name))
@@ -34,6 +34,7 @@ public class ContactService
         Contact contact = new Contact(name, email, phone);
         // Pass data to repository to store it
         _repository.Add(contact);
+        return contact;
     }
 
     public IReadOnlyList<Contact> GetContacts()

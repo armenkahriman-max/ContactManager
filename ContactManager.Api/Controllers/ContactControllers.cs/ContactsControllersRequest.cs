@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ContactManager.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[api/controllers]")]
 public class ContactsController : ControllerBase
 {
     private readonly ContactService _contactService;
@@ -86,9 +86,18 @@ public class ContactsController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        _contactService.DeleteContact(id);
+        try
 
-        return NoContent();
+        {
+            _contactService.DeleteContact(id);
+
+            return NoContent();
+        }
+
+        catch (KeyNotFoundException)
+        {
+            return NotFound();
+        }
     }
 }
 

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManager.Tests", "Con
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManager.Api", "ContactManager.Api\ContactManager.Api.csproj", "{CD2E1309-10A1-4728-86C7-94B2493AC44E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManager.Api.Tests", "ContactManager.Api.Tests\ContactManager.Api.Tests.csproj", "{8FC3B0DF-85CF-4A97-90B8-BF8719F85B36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{CD2E1309-10A1-4728-86C7-94B2493AC44E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD2E1309-10A1-4728-86C7-94B2493AC44E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD2E1309-10A1-4728-86C7-94B2493AC44E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FC3B0DF-85CF-4A97-90B8-BF8719F85B36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC3B0DF-85CF-4A97-90B8-BF8719F85B36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC3B0DF-85CF-4A97-90B8-BF8719F85B36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC3B0DF-85CF-4A97-90B8-BF8719F85B36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

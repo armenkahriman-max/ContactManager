@@ -1,4 +1,6 @@
-public class DeleteContactRequest
+namespace ContactManager.Api.Models.Requests;
+
+public class CreateContactRequest
 {
     public string Name { get; set; } = "";
     public int Id { get; set; }

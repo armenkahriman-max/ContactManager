@@ -1,6 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
+using ContactManager.Api.Models.Requests;
+using ContactManager.Api.Models.Responses;
 using ContactManager.Core;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+
+
 
 
 
@@ -8,22 +11,15 @@ namespace ContactManager.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ContactController : ControllerBase
+public class ContactsController : ControllerBase
 {
     private readonly ContactService _contactService;
 
-    public ContactController(ContactService contactService)
+    public ContactsController(ContactService contactService)
     {
         _contactService = contactService;
     }
-    public class ContactResponse
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string Phone { get; set; } = "";
 
-    }
 
     [HttpGet]
     public IEnumerable<ContactResponse> Get()
@@ -91,7 +87,6 @@ public class ContactController : ControllerBase
     public IActionResult Delete(int id)
     {
         _contactService.DeleteContact(id);
-
 
         return NoContent();
     }

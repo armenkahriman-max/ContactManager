@@ -1,4 +1,5 @@
 
+using ContactManager.Api.Models.Requests;
 using ContactManager.Core;
 
 
@@ -12,15 +13,23 @@ public class ContactServiceTests
         // Create the service that uses the repository
         var service = new ContactService(repo);
         // Call the method we want to test: add a contact named "John"
-        service.AddContact("Frank", "FranktheTank@gmail.com", "0404332393");
-
+        var request = new CreateContactRequest
+        {
+            Name = "Frank",
+            Email = "FranktheTank@gmail.com",
+            Phone = "0404332393"
+        };
         // Get all contacts from the service
-        var contacts = service.GetContacts();
+        service.AddContact(request);
+
+        var contacts =service.GetContacts();
 
         // Check that there is exactly 1 contact in the list
         Assert.Single(contacts);
         // Check that the first contact's name is "John"
         Assert.Equal("Frank", contacts[0].Name);
+        Assert.Equal("FranktheTank@gmail.com", contacts[0].Email);
+        Assert.Equal("0404332393", contacts[0].Phone);
     }
 }
 public class RepositoryTests

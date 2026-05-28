@@ -1,5 +1,4 @@
 using ContactManager.Api.Models.Requests;
-using ContactManager.Api.Models.Responses;
 using ContactManager.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ContactManager.Api.Controllers;
 
 [ApiController]
-[Route("[api/controllers]")]
+[Route("api/[controller]")]
 public class ContactsController : ControllerBase
 {
     private readonly ContactService _contactService;
@@ -22,28 +21,25 @@ public class ContactsController : ControllerBase
 
 
     [HttpGet]
-    public IEnumerable<ContactResponse> Get()
+    public IActionResult Get()
     {
-        return _contactService.GetContacts()
-         .Select(contact => new ContactResponse
-         {
-             Id = contact.Id,
-             Name = contact.Name,
-             Email = contact.Email,
-             Phone = contact.Phone
-         });
-
+        var response = _contactService.GetContacts();
+        return Ok(response);
     }
 
     [HttpGet("Search")]
-    public IEnumerable<ContactResponse> Search(string name)
+    public IActionResult Search([FromQuery] string name)
     {
-        return _contactService.SearchContacts(name)
-        .Select(contact => new ContactResponse
+        try
         {
-            Id = contact.Id,
-            Name = contact.Name
-        });
+
+            var response = _contactService.SearchContacts(name);
+            return Ok(response);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
 
     }
 
@@ -52,18 +48,9 @@ public class ContactsController : ControllerBase
     {
         try
         {
-            var contact = _contactService.AddContact(
-                request.Name,
-                request.Email,
-                request.Phone);
+            var response = _contactService.AddContact(request);
 
-            return Ok(new ContactResponse
-            {
-                Id = contact.Id,
-                Name = contact.Name,
-                Email = contact.Email,
-                Phone = contact.Phone
-            });
+            return CreatedAtAction(nameof(Get), new {id = response.Id}, response);
         }
         catch (ArgumentException ex)
         {
@@ -74,32 +61,39 @@ public class ContactsController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult Edit(int id, UpdateContactRequest request)
     {
-        _contactService.UpdateContact(
-        id,
-         request.Name,
-          request.Email,
-           request.Phone);
+        try
+        {
+            _contactService.UpdateContact(id, request);
 
-        return NoContent();
+            return NoContent();
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
+
 
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
         try
-
         {
             _contactService.DeleteContact(id);
-
             return NoContent();
         }
-
         catch (KeyNotFoundException)
         {
             return NotFound();
         }
+
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }
+
 
 
 

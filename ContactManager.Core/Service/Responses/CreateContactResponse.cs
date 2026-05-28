@@ -1,7 +1,6 @@
-
 namespace ContactManager.Api.Models.Responses;
 
-public class ContactResponse
+public class CreateContactResponse
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";

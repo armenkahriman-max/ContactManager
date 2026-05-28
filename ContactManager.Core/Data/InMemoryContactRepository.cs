@@ -41,22 +41,23 @@ public class InMemoryContactRepository : IContactRepository
 
     // Update existing contact
     public void Update(int id, string name, string email, string phone)
-{
-    var contact = GetById(id);
-    if (contact == null) return;
+    {
+        var contact = GetById(id);
+        if (contact == null) return;
 
-    contact.Name = name;
-    contact.Email = email;
-    contact.Phone = phone;
-}
+        contact.Name = name;
+        contact.Email = email;
+        contact.Phone = phone;
+    }
 
     // Delete contact
     public void Delete(int id)
     {
         // Find contact
-        var contact = GetById(id);
+        var contact = _contacts.FirstOrDefault(c => c.Id == id);
         // If not found, stop
-        if (contact == null) return;
+        if (contact == null)
+            throw new KeyNotFoundException($"Contact with ID {id} not found");
 
         // Remove from list
         _contacts.Remove(contact);

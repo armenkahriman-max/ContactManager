@@ -1,5 +1,7 @@
 ﻿
 
+using ContactManager.Api.Models.Requests;
+
 namespace ContactManager.Core;
 
 // =======================
@@ -69,7 +71,15 @@ public class Menu(IConsole console, ContactService service)
         !string.IsNullOrWhiteSpace(email) &&
         !string.IsNullOrWhiteSpace(phone))
         {
-            _service.AddContact(name, email, phone);
+            var request = new CreateContactRequest
+            {
+                Name = name,
+                Email = email,
+                Phone = phone
+            };
+
+            _service.AddContact(request);
+
             _console.WriteLine($"Contact added: {name}");
             _console.WriteLine($"Email added:{email}");
             _console.WriteLine($"PhoneNumber added:{phone}");
@@ -144,9 +154,21 @@ public class Menu(IConsole console, ContactService service)
                 _console.WriteLine("Enter PhoneNumber:");
                 var phone = _console.ReadLine() ?? "";
 
-                _service.UpdateContact(id, name, email, phone);
+                var request = new UpdateContactRequest
+                {
+                    Name = name,
+                    Email = email,
+                    Phone = phone
+                };
+
+                _service.UpdateContact(id, request);
+
                 _console.WriteLine("Updated!"); //show “Updated!”
             }    //Find contact → replace its name”
+            else
+            {
+                _console.WriteLine("Invalid Id");
+            }
         }
     }
 

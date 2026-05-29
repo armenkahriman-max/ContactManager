@@ -25,14 +25,17 @@ public class ContactService
     }
 
     public CreateContactResponse AddContact(CreateContactRequest request)
-    {
-        // Validation: prevent empty or invalid names
+    { //in future do not put CretqteContact put the veriables inside request.name,email etc for better organisation
+      //make dot for backend and frontend in the future
+      // Validation: prevent empty or invalid names
         if (string.IsNullOrWhiteSpace(request.Name))
             throw new ArgumentException("Name cannot be empty");
-        if (string.IsNullOrWhiteSpace(request.Email))
-            throw new ArgumentException("Email cannot be empty");
-        if (string.IsNullOrWhiteSpace(request.Phone))
-            throw new ArgumentException("Phone number cannot be Empty");
+        /*
+    if (string.IsNullOrWhiteSpace(request.Email))
+        throw new ArgumentException("Email cannot be empty");
+    if (string.IsNullOrWhiteSpace(request.Phone))
+        throw new ArgumentException("Phone number cannot be Empty");
+        */
 
         var contact = new Contact(request.Name, request.Email, request.Phone);
 
@@ -53,29 +56,39 @@ public class ContactService
         return _repository.GetAll();
     }
 
-    public void UpdateContact(int id, UpdateContactRequest request)
+    public bool UpdateContact(int id, UpdateContactRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.Name))
             throw new ArgumentException("Name cannot be empty");
-        if (string.IsNullOrWhiteSpace(request.Email))
-            throw new ArgumentException("Email cannot be empty");
+        /*
+    if (string.IsNullOrWhiteSpace(request.Email))
+        throw new ArgumentException("Email cannot be empty");
+        */
+
+        var contact = _repository.GetById(id);
+        if (contact == null) return false;
 
         _repository.Update(id, request.Name, request.Email, request.Phone);
+        return true;
     }
 
-    public void DeleteContact(int id)
+    public bool DeleteContact(int id)
     {
         if (id <= 0)
-        throw new ArgumentException("Invalid contact ID");
-            //// Send delete request to repository
-            _repository.Delete(id);
+            throw new ArgumentException("Invalid contact ID");
+        //// Send delete request to repository
+        var contact = _repository.GetById(id);
+        if (contact == null) return false;
+
+        _repository.Delete(id);
+        return true;
     }
 
     // SEARCH CONTACTS
     public List<CreateContactResponse> SearchContacts(string name)
     {
-        if(string.IsNullOrWhiteSpace(name))
-        throw new ArgumentException("Name cannot be empty");
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Name cannot be empty");
         // Ask repository to find matching contacts
         var contacts = _repository.Search(name);
 

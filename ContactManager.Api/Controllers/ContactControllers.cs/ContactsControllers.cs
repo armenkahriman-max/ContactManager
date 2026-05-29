@@ -27,6 +27,7 @@ public class ContactsController : ControllerBase
 
     [HttpGet("Search")]
     public IActionResult Search([FromQuery] string name)
+    // // string? name = Request.Query["name"];
     => Ok(_contactService.SearchContacts(name));
 
 

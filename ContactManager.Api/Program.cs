@@ -20,6 +20,26 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Middleware — catches (ArgumentException) from the Service
+// throws back 400 Bad Requests without try/catch in every controller
+/*
+context ....
+Response => StatusConde, ContentType (app.json,,,), Body
+Request => Path (api/contacts), Method, Header, Body
+*/
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next();
+    }
+    catch (ArgumentException e)
+    {
+        context.Response.StatusCode = 400; // BadRequest
+        await context.Response.WriteAsync(e.Message);
+    }
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -30,6 +50,6 @@ app.Run();
 
 public partial class Program;
 
-    
+
 
 
